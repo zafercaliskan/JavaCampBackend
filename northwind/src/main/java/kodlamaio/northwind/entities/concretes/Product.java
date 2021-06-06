@@ -3,6 +3,7 @@ package kodlamaio.northwind.entities.concretes;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -19,7 +20,7 @@ public class Product {
 	//Tablodaki id alanın ne olduğunu söylemek gerekiyor. İşlemlerini idye göre yapacak.
 	//Veri tabanında id alanları: bazen manuel, bazen otomatik, bazen oracle tarafında...
     @Id
-    @GeneratedValue //Birer birer artırılacağını belirttik..
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //Birer birer artırılacağını belirttik..
     @Column(name="product_id") //Veri tabanında hangi kolona karşılık geldiğini söylüyoruz.
 	private int id;
 
