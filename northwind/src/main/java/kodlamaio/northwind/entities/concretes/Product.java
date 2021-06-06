@@ -8,14 +8,19 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-@Data
-@Entity
-@Table(name="products") 
+//Anatasyon: Anatasyon nedir? - Aslında bir class'ın çalışma anında veya derleme
+//anında onunla bilgi toplama için yapılan bir yapı. C# karşılığı: attribute.
+
+@Data //lombok: getter setter'ı bizim yerimize yapar.
+@Entity //Product bir entitydir yani bir veri tabanı nesnesi olduğunu belirtiriz.
+@Table(name="products") //Veri tabanında hangi tabloya karşılık geldiğini söyleriz.
 public class Product {
 	
+	//Tablodaki id alanın ne olduğunu söylemek gerekiyor. İşlemlerini idye göre yapacak.
+	//Veri tabanında id alanları: bazen manuel, bazen otomatik, bazen oracle tarafında...
     @Id
-    @GeneratedValue
-    @Column(name="product_id")
+    @GeneratedValue //Birer birer artırılacağını belirttik..
+    @Column(name="product_id") //Veri tabanında hangi kolona karşılık geldiğini söylüyoruz.
 	private int id;
 
     @Column(name="category_id")
