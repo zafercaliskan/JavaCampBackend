@@ -4,13 +4,17 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import kodlamaio.northwind.business.abstracts.ProductService;
+import kodlamaio.northwind.core.utilities.results.DataResult;
+import kodlamaio.northwind.core.utilities.results.Result;
 import kodlamaio.northwind.entities.concretes.Product;
 
-@RestController  //Sen bir controllersın demek. Her iş yapan sınıflara anatayon ekledik. Entity, Service etc.
+@RestController  //Sen bir controllersın demek. Her iş yapan sınıflara anatayon ekledik. Entity, Service etc.  Java olmayanlarda tanısın diye RestController tanımlarız.
 @RequestMapping("/api/products") //Farklı controllerlar olabilir. //http://localhost:8080/api/products bir istek gelirse onu karşılayacak budur demiş oluyoruz.
 public class ProductsController {
 	private ProductService productService;
@@ -23,12 +27,20 @@ public class ProductsController {
 
 	@Autowired
 	public ProductsController(ProductService productService) {		
+		//productService bir interface. Tek başına bir anlamı yok. Fakat referans tutucu olması itibariyle bu adam manager'ı tutabilir. 
+		//Çünkü kendisinden implemente edilen classları tutabilir.  @Autowired da tüm projeyi gezer o interface'i implementye eden classı managerı bulur 
+		//onu newler o referansı productService' arkadaşına atar.
 		super();
 		this.productService = productService;
 	}
 
 	@GetMapping("/getall") //http://localhost:8080/api/products/getall'e istek gelince burası çalışır.
-	public List<Product> getAll(){
+	public DataResult<List<Product>> getAll(){
 		return this.productService.getAll();
+	}
+
+	@PostMapping("/add")
+	public Result add(@RequestBody Product product) {
+		return this.productService.add(product);
 	}
 }
