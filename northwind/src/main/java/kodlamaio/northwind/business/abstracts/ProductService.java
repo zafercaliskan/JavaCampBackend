@@ -6,22 +6,27 @@ import kodlamaio.northwind.core.utilities.results.DataResult;
 import kodlamaio.northwind.core.utilities.results.Result;
 import kodlamaio.northwind.entities.concretes.Product;
 
-public interface ProductService {//Controllerların kullanacağı operasyonları yazarız. 
-	//İş katmanında sadece ve sadece iş kodları yazılır. 
-	//Ürün eklerken bir kuralımız varsa örneğin hepsiburada üretici ilk ay kendi ürününden fazla 100 tane ekleyebilir.
-	DataResult<List<Product>> getAll(); //Burada success yada error olduğunu belirtmedik.
-	
+public interface ProductService {
+	// Controllerların kullanacağı operasyonları yazarız.
+	// İş katmanında sadece ve sadece iş kodları yazılır.
+	// Ürün eklerken bir kuralımız varsa örneğin hepsiburada üretici ilk ay kendi ürününden fazla 100 tane ekleyebilir.
+	DataResult<List<Product>> getAll(); // Burada success yada error olduğunu belirtmedik.
+
+	DataResult<List<Product>> getAllSorted();
+
+	DataResult<List<Product>> getAll(int pageNo, int pageSize);
+
 	Result add(Product product);
-	
-	DataResult<Product> getByProductName(String productName);    
 
-	DataResult<Product> getByProductNameAndCategoryId(String productName, int categoryId);	  
+	DataResult<Product> getByProductName(String productName);
 
-	DataResult<List<Product>> getByProductNameOrCategoryId(String productName, int categoryId);	  
+	DataResult<Product> getByProductNameAndCategoryId(String productName, int categoryId);
 
-	DataResult<List<Product>> getByCategoryIdIn(List<Integer> categories);	  
+	DataResult<List<Product>> getByProductNameOrCategoryId(String productName, int categoryId);
 
-	DataResult<List<Product>> getByProductNameContains(String productName);	  
+	DataResult<List<Product>> getByCategoryIdIn(List<Integer> categories);
+
+	DataResult<List<Product>> getByProductNameContains(String productName);
 
 	DataResult<List<Product>> getByProductNameStartsWith(String productName);
 

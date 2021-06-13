@@ -9,7 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 //Anatasyon: Anatasyon nedir? - Aslında bir class'ın çalışma anında veya derleme
 //anında onunla bilgi toplama için yapılan bir yapı. C# karşılığı: attribute.
@@ -17,6 +19,8 @@ import lombok.Data;
 @Data //lombok: getter setter'ı bizim yerimize yapar.
 @Entity //Product bir entitydir yani bir veri tabanı nesnesi olduğunu belirtiriz.
 @Table(name="products") //Veri tabanında hangi tabloya karşılık geldiğini söyleriz.
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product {
 	
 	//Tablodaki id alanın ne olduğunu söylemek gerekiyor. İşlemlerini idye göre yapacak.
@@ -46,20 +50,5 @@ public class Product {
     //Bu hareketi yapınca aslında biz bu product'ın category'si nedir yapmış oluyoruz.Yani en yukarıdaki category_id alanını tutmaya gerek yok.
     private Category category;
  	//Category'nin yani ana tablonun products ile ilgili hiçbir bilgisi yok. Biz join'i category_id ile yapıyoruz. 
-  	// İlişkilendirildiği anda maplemiş olacağız.
-
-	public Product() {
-		super();
-	}
-
-	public Product(int id, int categoryId, String productName, double unitPrice, short unitsInStock,
-			String quantityPerUnit) {
-		super();
-		this.id = id;
-		this.categoryId = categoryId;
-		this.productName = productName;
-		this.unitPrice = unitPrice;
-		this.unitsInStock = unitsInStock;
-		this.quantityPerUnit = quantityPerUnit;
-	}    
+  	// İlişkilendirildiği anda maplemiş olacağız.  
 }
