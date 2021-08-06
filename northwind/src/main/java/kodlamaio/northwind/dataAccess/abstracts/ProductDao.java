@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import kodlamaio.northwind.entities.concretes.Product;
+import kodlamaio.northwind.entities.dtos.ProductWithCategoryDto;
 //Interface interface'i extend eder.
 public interface ProductDao extends JpaRepository<Product,Integer>{
 	//getBy görünce tablolara bakıyor. Tablodaki ilgili kolona göre where koşulu oluşturuyor.
@@ -34,7 +35,15 @@ public interface ProductDao extends JpaRepository<Product,Integer>{
 	//Burada entities'de Product.javada nasıl verdiysen öyle kullanarak yazacaksın. select * 'a da gerek yok from ile başlıyoruz.	  
 	List<Product> getByNameAndCategory(String productName, int categoryId);	  
 	  
-	//select * from products where product_name=bisey and categoryId=bisey -> bu sql sorgusu	
+	//select * from products where product_name=bisey and categoryId=bisey -> bu sql sorgusu
+	
+	@Query("Select new kodlamaio.northwind.entities.dtos.ProductWithCategoryDto"
+	  		+ "(p.id, p.productName, c.categoryName) "
+	  		+ "From Category c Inner Join c.products p") //name space yazmak gerekiyor. On bilgisini yazmaya gerek yok
+			// Çünkü join olan alanlar belli olduğu için. Birde belirli alanları çekeceğimiz için select yazarız.	  
+	List<ProductWithCategoryDto> getProductWithCategoryDetails();	  
+	//select p.productId,p.productName, c.categoryName  from Category c inner join Product p	  
+	//on c.categoryId = p.categoryId
 }
 
 /// JpaRepository her nesneyle çalışabilecek bir yapıda. Yapılandırmaya göre çalışır.
